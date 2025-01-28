@@ -1,0 +1,65 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+local Window = OrionLib:MakeWindow({Name = "林吃人的火车爱德华", HidePremium = false, SaveConfig = true, IntroText = "林吃人的火车爱德华", ConfigFolder = "BeiFengEdwardTheMan-EatingTrain"})
+
+local Home = Window:MakeTab({
+	Name = "主要功能",
+	Icon = "rbxassetid://17280816417",
+	PremiumOnly = false
+})
+
+Home:AddLabel("括号内的数字分别代表 每次发射N颗子弹的伤害 和 最大子弹储备量。")
+
+Home:AddButton({
+	Name = "开启功能（25，1000）（不卡）",
+	Callback = function()
+		for i,v in pairs(getgc(true)) do
+			if type(v) == "table" and rawget(v,"IntValue_MaxDamageRange") ~= nil then
+				v.IntValue_PelletCount = 25
+				v.IntValue_MaxMagazine = 1000
+				v.IntValue_MaxReserve = 1000
+			end
+		end
+	end 
+})
+
+Home:AddButton({
+	Name = "开启功能（40，1000）（微卡）",
+	Callback = function()
+		for i,v in pairs(getgc(true)) do
+			if type(v) == "table" and rawget(v,"IntValue_MaxDamageRange") ~= nil then
+				v.IntValue_PelletCount = 40
+				v.IntValue_MaxMagazine = 1000
+				v.IntValue_MaxReserve = 1000
+			end
+		end
+	end 
+})
+
+Home:AddButton({
+	Name = "开启功能（60，1000）（中卡）",
+	Callback = function()
+		for i,v in pairs(getgc(true)) do
+			if type(v) == "table" and rawget(v,"IntValue_MaxDamageRange") ~= nil then
+				v.IntValue_PelletCount = 60
+				v.IntValue_MaxMagazine = 1000
+				v.IntValue_MaxReserve = 1000
+			end
+		end
+	end 
+})
+
+Home:AddButton({
+	Name = "开启功能（100，1000）（巨卡）",
+	Callback = function()
+		for i,v in pairs(getgc(true)) do
+			if type(v) == "table" and rawget(v,"IntValue_MaxDamageRange") ~= nil then
+				v.IntValue_PelletCount = 100
+				v.IntValue_MaxMagazine = 1000
+				v.IntValue_MaxReserve = 1000
+			end
+		end
+	end 
+})
+
+OrionLib:Init()
