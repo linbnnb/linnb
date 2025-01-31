@@ -1,0 +1,352 @@
+local bypass;
+bypass = hookmetamethod(game, "__namecall", function(method, ...) 
+	if getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Ban then
+		return
+	elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.AdminGUI then
+		return
+	elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.WalkSpeedChanged then
+		return
+	end
+	return bypass(method, ...)
+end)
+
+if setfpscap then 
+	setfpscap(12569)
+end
+
+local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/UWUBeiFeng/Scripts/main/Gloves.lua"))()
+local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/UWUBeiFeng/Scripts/main/Functions.lua"))()
+
+local function getGlove()
+	return game.Players.LocalPlayer.leaderstats.Glove.Value
+end
+
+local OrionLib = loadstring(game:HttpGet(('https://pastebin.com/raw/ckBctFWr')))()
+
+local Window = OrionLib:MakeWindow({Name = "林掌掴战斗", HidePremium = false, SaveConfig = true, IntroText = "林掌掴战斗", ConfigFolder = "BeiFengSlapBattles"})
+
+local Home = Window:MakeTab({
+	Name = "主要功能",
+	Icon = "rbxassetid://14361559991",
+	PremiumOnly = false
+})
+
+local antiAdmins
+
+Home:AddToggle({
+	Name = "防管理员",
+	Default = false,
+	Callback = function(Value)
+		antiAdmins = Value
+		if antiAdmins == true then
+			game.Players.PlayerAdded:Connect(function(Plr)
+				if Plr:GetRankInGroup(9950771) and 7 <= Plr:GetRankInGroup(9950771) and antiAdmins then
+					OrionLib:MakeNotification({
+						Name = "林",
+						Content = "已发现管理员，请尽快离开游戏",
+						Image = "rbxthumb://type=Asset&id=5107182114&w=150&h=150",
+						Time = 10
+					})
+				end
+			end)
+		end
+	end    
+})
+
+local farming
+
+Home:AddToggle({
+	Name = "刷巴掌数",
+	Default = false,
+	Callback = function(Value)
+		farming = Value
+		if farming == true then
+			setfpscap(50)
+			workspace.DEATHBARRIER.CanTouch = false
+			workspace.DEATHBARRIER2.CanTouch = false
+			workspace.dedBarrier.CanTouch = false
+
+			while farming and task.wait() do
+				pcall(function()
+					for Index, Human in next, game.Players:GetPlayers() do
+						if Human ~= game.Players.LocalPlayer and Human.Character and not Human.Character:FindFirstChild("isParticipating") and Human.Character:FindFirstChild("Torso") and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
+							if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then                             
+								task.wait(0.1)
+								game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)   
+								task.wait()   
+								game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
+								wait(0.25)
+								shared.gloveHits[getGlove()]:FireServer(Human.Character:FindFirstChild("Torso"))
+								wait(0.25)
+							end
+						end
+					end
+				end) 
+			end
+		else
+			setfpscap(1269)
+			workspace.DEATHBARRIER.CanTouch = true
+			workspace.DEATHBARRIER2.CanTouch = true
+			workspace.dedBarrier.CanTouch = true
+
+			if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
+				task.wait(3)
+				game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+			end
+		end
+	end    
+})
+
+Home:AddButton({
+	Name = "获取大亨手套",
+	Callback = function()
+		if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2129212145) then
+			if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then    
+				repeat task.wait(0.5)   
+					firetouchinterest(game.Players.LocalPlayer.Character:FindFirstChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+					firetouchinterest(game.Players.LocalPlayer.Character:FindFirstChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)          
+				until game.Players.LocalPlayer.Character:FindFirstChild("entered") 
+			end
+			task.wait()
+			repeat task.wait(0.5)
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Arena.Plate.CFrame * CFrame.new(0,-2,0)   
+			until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2129212145) 
+
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Arena.Plate.CFrame * CFrame.new(0,2,0)
+		end
+	end
+})
+
+Home:AddButton({
+	Name = "获取编辑手套",
+	Callback = function()
+		local Door = 1
+		if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124847850) and 5000 <= game.Players.LocalPlayer.leaderstats.Slaps.Value then
+			repeat task.wait(0.25)
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.PocketDimension.Doors[Door].CFrame
+				Door = Door + 1
+				print(Door)
+				wait(5)
+			until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124847850)
+		else 
+			OrionLib:MakeNotification({
+				Name = "林",
+				Content = "您已经拥有编辑手套 或 您没有5K巴掌数",
+				Image = "rbxthumb://type=Asset&id=5107182114&w=150&h=150",
+				Time = 5
+			})
+		end
+	end
+})
+
+local Combat = Window:MakeTab({
+	Name = "战斗功能",
+	Icon = "rbxassetid://14923601927",
+	PremiumOnly = false
+})
+
+local explode
+
+Combat:AddToggle({
+	Name = "爆炸光环",
+	Default = false,
+	Callback = function(Value)
+		explode = Value
+		while explode and task.wait(0.01) do
+			game:GetService("ReplicatedStorage"):WaitForChild("rhythmevent"):FireServer("AoeExplosion", 86)
+		end
+	end    
+})
+
+local SlapAura
+
+Combat:AddToggle({
+	Name = "拍打光环",
+	Default = false,
+	Callback = function(Value)
+		SlapAura = Value
+		while SlapAura do
+			task.wait(0.005)  
+			pcall(function()    
+				for Index, Player in next, game.Players:GetPlayers() do
+					if Player ~= game.Players.LocalPlayer and Player.Character and Player.Character:FindFirstChild("entered") then
+						if Player.Character:FindFirstChild("Head") then
+							if Player.Character.Head:FindFirstChild("UnoReverseCard") == nil and Player.Character:FindFirstChild("rock") == nil then
+								if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+									local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Player.Character.HumanoidRootPart.Position).Magnitude
+									task.wait()
+									if 25 >= Magnitude then
+										shared.gloveHits[getGlove()]:FireServer(Player.Character:WaitForChild("Head"))
+									end
+								end
+							end
+						end
+					end
+				end
+			end)
+		end 
+	end    
+})
+
+local Other = Window:MakeTab({
+	Name = "其它",
+	Icon = "rbxassetid://14910866529",
+	PremiumOnly = false
+})
+
+local antiJack
+
+Other:AddToggle({
+	Name = "防Hallow-Jack",
+	Default = false,
+	Callback = function(Value)
+		antiJack = Value
+		if antiJack == true then
+			game.Players.LocalPlayer.PlayerScripts.HallowJackAbilities.Disabled = true
+		else
+			game.Players.LocalPlayer.PlayerScripts.HallowJackAbilities.Enabled = true
+		end
+	end    
+})
+
+local antiZa
+
+Other:AddToggle({
+	Name = "防Za Hando",
+	Default = false,
+	Callback = function(Value)
+		antiZa = Value
+		while antiZa do
+			wait(0.001)
+			for i,v in pairs(game.Workspace:GetChildren()) do
+				if v:IsA("Part") and v.Name == "Part" then
+					v:Destroy()
+				end 
+			end 
+		end
+	end    
+})
+
+local antiRe
+
+Other:AddToggle({
+	Name = "防收割者",
+	Default = false,
+	Callback = function(Value)
+		antiRe = Value
+		while antiRe do
+			wait(0.001)
+			for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if v.Name == "DeathMark" then
+					game:GetService("ReplicatedStorage").ReaperGone:FireServer(game:GetService("Players").LocalPlayer.Character.DeathMark)
+					game:GetService("Lighting"):WaitForChild("DeathMarkColorCorrection"):Destroy()
+				end 
+			end
+		end
+	end    
+})
+
+local antiPush
+
+Other:AddToggle({
+	Name = "防推手",
+	Default = false,
+	Callback = function(Value)
+		antiPush = Value
+		while antiPush do
+			wait(0.001)
+			for i,v in pairs(game.Workspace:GetChildren()) do
+				if v.Name == "wall" then
+					v.CanCollide = false
+				end
+			end
+		end
+	end    
+})
+
+local antiBoost
+
+Other:AddToggle({
+	Name = "防助推器",
+	Default = false,
+	Callback = function(Value)
+		antiBoost = Value
+		if antiBoost == true then
+			if game.Workspace[game.Players.LocalPlayer.Name]:FindFirstChild("BoosterObject", 1) then
+				game.Workspace[game.Players.LocalPlayer.Name]:FindFirstChild("BoosterObject", 1):Destroy()
+			end
+			task.wait()
+			game.Workspace[game.Players.LocalPlayer.Name].DescendantAdded:Connect(function(v)
+				if antiBoost == true then
+					if v.Name == "BoosterObject" then
+						task.wait(0.1)
+						v:Destroy()
+
+					end
+				end
+			end)
+		end
+	end    
+})
+
+local antiMail
+
+Other:AddToggle({
+	Name = "防邮件",
+	Default = false,
+	Callback = function(Value)
+		antiMail = Value
+		if antiMail == true then
+			game.Players.LocalPlayer.PlayerGui.DescendantAdded:Connect(function(UI)
+				if antiMail == true then
+					if UI.Name == "MailPopup" then
+						UI.Frame.Visible = false
+						task.wait()
+						game.Players.LocalPlayer.Character.Head.MailIcon:Destroy()
+					end
+				end
+			end)
+		else
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("MailPopup") then
+				game.Players.LocalPlayer.PlayerGui.MailPopup.Frame.Visible = true
+				task.wait()
+			end
+		end
+	end    
+})
+
+local antiStun
+
+Other:AddToggle({
+	Name = "防眩晕",
+	Default = false,
+	Callback = function(Value)
+		antiStun = Value
+		while antiStun do
+			task.wait()
+			if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true and not farming and not game.Players.LocalPlayer.Character.Ragdolled.Value == true and game.Workspace:FindFirstChild("Shockwave") then
+				game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+			end
+		end
+	end    
+})
+
+local antiSquid
+
+Other:AddToggle({
+	Name = "防章鱼",
+	Default = false,
+	Callback = function(Value)
+		antiSquid = Value
+		while antiSquid do
+			task.wait()
+			for i,v in pairs(game.Players.LocalPlayer.PlayerGui.SquidInk:GetChildren()) do
+				if v.Parent then
+					v:Destroy()
+				end
+			end
+		end
+	end    
+})
+
+OrionLib:Init()
