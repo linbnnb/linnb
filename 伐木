@@ -1797,7 +1797,7 @@ function shuaxinlb(zji)
 end
 shuaxinlb(true)
 
-local Cloudlib = loadstring(game:HttpGet("https://paste.gg/p/linnbnnnb/1b85f0d747fe4535a8a87fa5229e471a/files/d9b93f6be08a47f6a12970942b95d26d/raw", true))()
+local Cloudlib = loadstring(game:HttpGet("https://pastebin.com/raw/TF3yL64A", true))()
 local window = Cloudlib:new("林伐木大亨2", '')
 local Tab1 = window:Tab("玩家功能", "15613380753")
 local Section3 = Tab1:section("玩家", false)
