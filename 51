@@ -1,0 +1,117 @@
+local lib = loadstring(game:HttpGet"https://pastebin.com/raw/jZkxp4eT")()
+
+local win = lib:Window("林51区",Color3.fromRGB(0, 255, 0), Enum.KeyCode.E) -- your own keybind 
+
+local tab = win:Tab("主要功能")
+
+tab:Button("传送出生点", function()
+local x = 324.54
+local y = 511.5
+local z = 419.38
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(x,y,z))
+end)
+
+tab:Button("无敌点", function()
+Local = game:GetService('Players').LocalPlayer
+Char  = Local.Character
+touched,tpdback = false, false
+Local.CharacterAdded:connect(function(char)
+    if script.Disabled ~= true then
+        wait(.25)
+        loc = Char.HumanoidRootPart.Position
+        Char:MoveTo(box.Position + Vector3.new(0,.5,0))
+    end
+end)
+game:GetService('UserInputService').InputBegan:connect(function(key)
+    if key.KeyCode == Enum.KeyCode.Equals then
+        if script.Disabled ~= true then
+            script.Disabled = true
+            print'you may re-execute'
+        end
+    end
+end)
+box = Instance.new('Part',workspace)
+box.Anchored = true
+box.CanCollide = true
+box.Size = Vector3.new(10,1,10)
+box.Position = Vector3.new(0,10000,0)
+box.Touched:connect(function(part)
+    if (part.Parent.Name == Local.Name) then
+        if touched == false then
+            touched = true
+            function apply()
+                if script.Disabled ~= true then
+                    no = Char.HumanoidRootPart:Clone()
+                    wait(.25)
+                    Char.HumanoidRootPart:Destroy()
+                    no.Parent = Char
+                    Char:MoveTo(loc)
+                    touched = false
+                end end
+            if Char then
+                apply()
+            end
+        end
+    end
+end)
+repeat wait() until Char
+loc = Char.HumanoidRootPart.Position
+Char:MoveTo(box.Position + Vector3.new(0,.5,0))
+end)
+
+tab:Button("传送弹药库", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(184.0356903076172, 314.1027526855469, 437.3685607910156)
+end)
+
+tab:Button("传送武器改造", function()
+local x = 281
+local y = 325.5
+local z = 784
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(x,y,z))
+end)
+
+tab:Button("指令区域", function()
+local x = 138.42
+local y = 333.5
+local z = 535.41
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(x,y,z))
+game.StarterGui:SetCore("SendNotification", {
+    Title = "你的代码是: 81975";
+    Text = "感谢你使用林脚本"; -- what the text says (ofc)
+    Duration = 20;
+})
+wait(1)
+game.StarterGui:SetCore("SendNotification", {
+    Title = "传送成功！";
+    Text = "感谢你使用林脚本"; -- what the text says (ofc)
+    Duration = 20;
+})
+end)
+
+tab:Button("步枪", function()
+local x = 122
+local y = 323.5
+local z = 699
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(x,y,z))
+end)
+
+tab:Button("冲锋枪", function()
+local x = 231.32
+local y = 373.5
+local z = 39.78
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(x,y,z))
+end)
+
+tab:Button("闪电枪", function()
+local x = 112.07
+local y = 335.5
+local z = 556
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(x,y,z))
+end)
+
+tab:Button("喷子", function()
+local x = 143
+local y = 333
+local z = 500
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(x,y,z))
+end)
