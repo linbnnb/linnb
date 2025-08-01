@@ -1995,7 +1995,7 @@ spawn(function()
     end
 end)
 
-local bailib = loadstring(game:HttpGet"https://pastebin.com/raw/TF3yL64A")()
+local bailib = loadstring(game:HttpGet"https://raw.githubusercontent.com/linnblin/lin/refs/heads/main/linui")()
 local win = bailib:new("林bf")
 local Tab1 = win:Tab("自动功能", "15613380753")
 local Tab = win:Tab("传送功能", "15613380753")
