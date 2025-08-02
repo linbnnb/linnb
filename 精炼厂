@@ -302,7 +302,7 @@ local function lg(value)
         end);
     end;
 end;
-local bailib = loadstring(game:HttpGet"https://pastebin.com/raw/TF3yL64A")()
+local bailib = loadstring(game:HttpGet"https://raw.githubusercontent.com/linnblin/lin/refs/heads/main/linui")()
 local win = bailib:new("林精炼厂洞穴",'')
 local Tab = win:Tab("主要功能", "17280816417")
 local Section = Tab:section("矿石功能",true)
